@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>EdiEngine.Standards.X12_004010</AssemblyName>
     <RootNamespace>EdiEngine.Standards.X12_004010</RootNamespace>
     <AssemblyVersion>1.6.0.0</AssemblyVersion>
@@ -10,14 +10,14 @@
     <Description>Edi Engine X12 004010 lib</Description>
     <PackageProjectUrl>https://github.com/olmelabs/EdiEngine</PackageProjectUrl>
     <RepositoryUrl>https://github.com/olmelabs/EdiEngine</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\..\EdiEngine.Common\EdiEngine.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

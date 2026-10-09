@@ -12,7 +12,7 @@ It uses POCO objects and XML is just an extension
 * **Composite Data Elements** are supported, which is really important for HIPAA and sometimes for other transactions even in retail.
 * **X12 Maps** Current repository contains all 004010 maps, including Purchase Order, Invoice, Shipment and many others.
 You can easily craft yours on their basis.
-* **.NET Standard 2.0 and Source Linking**. From version 1.6 repository only contains .NET Standard 2.0 projects. Source linking enabled and symbol package is published to nuget symbols server, making debugging easier. If you need a projects targeted .NET 4.5, use version 1.5.2 (no sourcelink and symbols available). 
+* **.NET 10 and Source Linking**. All projects now target .NET 10 (`net10.0`); version 1.6 targeted .NET Standard 2.0. Source linking enabled and symbol package is published to nuget symbols server, making debugging easier. If you need a projects targeted .NET 4.5, use version 1.5.2 (no sourcelink and symbols available). 
 
 ## Installation
 Clone repository or Install Nuget Package
