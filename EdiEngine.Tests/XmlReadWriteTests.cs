@@ -169,7 +169,7 @@ namespace EdiEngine.Tests
         private void SchemaErrorCallBack(object sender, ValidationEventArgs args)
         {
             //fail test in case validation errors
-            Assert.AreEqual(0, 1);
+            Assert.Fail(args.Message);
         }
 
     }

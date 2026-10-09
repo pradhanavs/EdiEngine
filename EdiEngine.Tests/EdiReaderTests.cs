@@ -183,13 +183,12 @@ namespace EdiEngine.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof (EdiParsingException))]
         public void EdiReader_ParseNonEDI()
         {
             using (Stream s = GetType().Assembly.GetManifestResourceStream("EdiEngine.Tests.TestData.NonEdi.edi"))
             {
                 EdiDataReader r = new EdiDataReader();
-                r.FromStream(s);
+                Assert.ThrowsExactly<EdiParsingException>(() => r.FromStream(s));
 
             }
         }
