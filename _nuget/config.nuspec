@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>xEdi.EdiEngine</id>
-    <version>1.6.0</version>
+    <version>2.0.0</version>
     <authors>olmelabs</authors>
     <owners>olmelabs</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,10 +10,11 @@
     <projectUrl>https://github.com/olmelabs/EdiEngine</projectUrl>
     <!-- <iconUrl>http://github.com/contoso/UsefulStuff/nuget_icon.png</iconUrl> -->
     <releaseNotes>
-	Added Sourcelink.
-	Bugfix in Date Time validation. 
-	Package updates.
-	Only netstandard2 is now supported. 
+	Breaking: all libraries now target .NET 10 only (net10.0). Use 1.6.0 for .NET Standard 2.0.
+	Breaking: Newtonsoft.Json replaced with System.Text.Json. JSON output is unchanged.
+	Breaking: EdiSimpleDataElement constructor parameter renamed from val to value.
+	JSON reader no longer drops date-like string values.
+	The package no longer depends on Newtonsoft.Json.
     </releaseNotes>
     <description>Simple .NET EDI X12 Reader, Writer and Validator. EDI JSON and XML Serialization and Deserialization.</description>
     <tags>.NET EDI X12 JSON XML EdiReader EdiWriter EdiParser EdiXml EdiJson FunctionalAcknowledgment SyntaxNotes NetCore</tags>

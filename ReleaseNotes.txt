@@ -38,3 +38,10 @@ Added Sourcelink.
 Bugfix in Date Time validation. 
 Package updates.
 Only netstandard2 is now supported. 
+
+2.0.0 - 10 Oct 2026
+Breaking: all libraries now target .NET 10 only (net10.0). Use 1.6.0 for .NET Standard 2.0.
+Breaking: Newtonsoft.Json replaced with System.Text.Json. JSON output is unchanged.
+Breaking: EdiSimpleDataElement constructor parameter renamed from val to value.
+JSON reader no longer drops date-like string values.
+Package versions are managed centrally in Directory.Packages.props.
