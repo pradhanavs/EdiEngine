@@ -1,18 +1,22 @@
 ﻿using System.IO;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using EdiEngine.Runtime;
-using Newtonsoft.Json;
 
 namespace EdiEngine
 {
     public class JsonDataWriter : DataWriter
     {
+        private static readonly JsonSerializerOptions SerializerOptions = new JsonSerializerOptions
+        {
+            // keep EDI separators such as '>' unescaped
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        };
+
         public override Stream WriteToStream(EdiBatch batch)
         {
             MemoryStream s = new MemoryStream();
-            StreamWriter w = new StreamWriter(s);
-            var serializer = new JsonSerializer();
-            serializer.Serialize(w, batch);
-            w.Flush();
+            JsonSerializer.Serialize(s, batch, SerializerOptions);
 
             s.Position = 0;
             return s;
@@ -20,7 +24,7 @@ namespace EdiEngine
 
         public override string WriteToString(EdiBatch batch)
         {
-            return JsonConvert.SerializeObject(batch);
+            return JsonSerializer.Serialize(batch, SerializerOptions);
         }
     }
 }

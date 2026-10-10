@@ -1,8 +1,8 @@
 ﻿using EdiEngine.Common.Definitions;
 using EdiEngine.Runtime;
-using Newtonsoft.Json;
-using System.IO;
 using System.Reflection;
+using System.Text;
+using System.Text.Json;
 
 namespace EdiEngine
 {
@@ -14,7 +14,11 @@ namespace EdiEngine
 
         protected override EdiIntermediateEntity ReadIntermediateTree(string rawData)
         {
-            JsonTextReader reader = new JsonTextReader(new StringReader(rawData));
+            Utf8JsonReader reader = new Utf8JsonReader(Encoding.UTF8.GetBytes(rawData), new JsonReaderOptions
+            {
+                CommentHandling = JsonCommentHandling.Skip,
+                AllowTrailingCommas = true
+            });
 
             EdiIntermediateEntity context = new EdiIntermediateEntity(null);
             PropertyInfo prop = null;
@@ -24,23 +28,23 @@ namespace EdiEngine
                 string val;
                 switch (reader.TokenType)
                 {
-                    case JsonToken.StartObject:
+                    case JsonTokenType.StartObject:
                         var ent = new EdiIntermediateEntity(context);
                         context?.Children.Add(ent);
                         context = ent;
                         break;
 
-                    case JsonToken.PropertyName:
-                        val = reader.Value.ToString();
+                    case JsonTokenType.PropertyName:
+                        val = reader.GetString();
                         prop = typeof(EdiIntermediateEntity).GetProperty(val);
                         break;
 
-                    case JsonToken.String:
-                        val = reader.Value.ToString();
+                    case JsonTokenType.String:
+                        val = reader.GetString();
                         prop?.SetValue(context, val);
                         break;
 
-                    case JsonToken.EndObject:
+                    case JsonTokenType.EndObject:
                         context = context?.Parent;
                         break;
                 }

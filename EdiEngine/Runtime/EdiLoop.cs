@@ -1,5 +1,5 @@
 ﻿using EdiEngine.Common.Definitions;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using EdiEngine.Xml;
 
@@ -18,7 +18,7 @@ namespace EdiEngine.Runtime
             Parent = parent;
         }
 
-        [JsonProperty(Order = 0)]
+        [JsonPropertyOrder(0)]
         [XmlIgnore]
         public override string Type => "L";
 
@@ -26,7 +26,7 @@ namespace EdiEngine.Runtime
         [XmlIgnore]
         public EdiLoop Parent { get; }
 
-        [JsonProperty(Order = 10)]
+        [JsonPropertyOrder(10)]
         [XmlProperty(Order = 10)]
         public List<EdiBaseEntity> Content { get; }
     }

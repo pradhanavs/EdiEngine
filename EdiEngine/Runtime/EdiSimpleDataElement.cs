@@ -1,19 +1,19 @@
 ﻿using EdiEngine.Common.Definitions;
 using EdiEngine.Xml;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace EdiEngine.Runtime
 {
     [XmlElement(IgnoreElementRoot = true)]
     public class EdiSimpleDataElement : DataElementBase
     {
-        public EdiSimpleDataElement(MapBaseDataElement definition, string val) : base(definition)
+        public EdiSimpleDataElement(MapBaseDataElement definition, string value) : base(definition)
         {
             if (definition != null)
             {
                 Type = definition.GetType().Name;
             }
-            Val = val;
+            Val = value;
         }
         [JsonIgnore]
         [XmlIgnore]
@@ -23,7 +23,8 @@ namespace EdiEngine.Runtime
         [XmlIgnore]
         public string Type { get; }
 
-        [JsonProperty(Order = 1, PropertyName = "E")]
+        [JsonPropertyName("E")]
+        [JsonPropertyOrder(1)]
         [XmlProperty(Order = 1, PropertyName = "E")]
         public override string Val { get; }
     }

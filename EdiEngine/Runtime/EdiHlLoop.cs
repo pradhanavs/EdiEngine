@@ -1,6 +1,6 @@
 ﻿using EdiEngine.Common.Definitions;
 using EdiEngine.Xml;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace EdiEngine.Runtime
 {
@@ -17,11 +17,11 @@ namespace EdiEngine.Runtime
             HL02_HierarchicalParentIdNumber = HL02;
         }
 
-        [JsonProperty(Order = 5)]
+        [JsonPropertyOrder(5)]
         [XmlProperty(Order = 5)]
         public int HL01_HierarchicalIdNumber { get; }
 
-        [JsonProperty(Order = 6)]
+        [JsonPropertyOrder(6)]
         [XmlProperty(Order = 6)]
         public int? HL02_HierarchicalParentIdNumber { get; }
     }

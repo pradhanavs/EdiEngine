@@ -16,9 +16,6 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EdiEngine.Common\EdiEngine.Common.csproj" />

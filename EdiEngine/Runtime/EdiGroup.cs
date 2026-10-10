@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using EdiEngine.Validation;
 using EdiEngine.Xml;
@@ -29,7 +29,7 @@ namespace EdiEngine.Runtime
         [XmlProperty(Order = 4)]
         public List<EdiTrans> Transactions { get; set; }
 
-        [JsonProperty(Order = 100)]
+        [JsonPropertyOrder(100)]
         [XmlProperty(Order = 100)]
         public virtual List<ValidationError> ValidationErrors { get; }
     }

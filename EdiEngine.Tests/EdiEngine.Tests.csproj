@@ -64,13 +64,13 @@
     <EmbeddedResource Include="TestData\MultipleInterchangesAndGroups.edi" />
     <EmbeddedResource Include="TestData\NonEdi.edi" />
     <EmbeddedResource Include="TestData\WrongGroupsAndTranCount.edi" />
+    <EmbeddedResource Include="TestData\Baseline\*.json" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="MSTest.TestAdapter" />
     <PackageReference Include="MSTest.TestFramework" />
-    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
   
   <ItemGroup>

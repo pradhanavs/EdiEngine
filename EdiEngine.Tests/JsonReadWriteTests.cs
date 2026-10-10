@@ -1,7 +1,7 @@
 ﻿using EdiEngine.Runtime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using System.IO;
+using System.Text.Json;
 using System.Linq;
 using EdiEngine.Standards.X12_004010.Maps;
 using M_940 = EdiEngine.Standards.X12_004010.Maps.M_940;
@@ -20,10 +20,10 @@ namespace EdiEngine.Tests
                 EdiDataReader r = new EdiDataReader();
                 EdiBatch b = r.FromStream(s);
 
-                //Write Json using newtonsoft
+                //Write Json using System.Text.Json
                 //check no exception
-                JsonConvert.SerializeObject(b);
-                JsonConvert.SerializeObject(b.Interchanges[0].Groups[0].Transactions[0]);
+                JsonSerializer.Serialize(b);
+                JsonSerializer.Serialize(b.Interchanges[0].Groups[0].Transactions[0]);
 
                 //or use writer to write to string or stream
                 JsonDataWriter w  = new JsonDataWriter();
@@ -124,6 +124,36 @@ namespace EdiEngine.Tests
             Assert.IsTrue(sln.Content[4] is EdiCompositeDataElement);
             Assert.AreEqual(6, ((EdiCompositeDataElement)sln.Content[4]).Content.Count);
 
+        }
+
+        [TestMethod]
+        [DataRow("940.OK")]
+        [DataRow("940.2.OK")]
+        [DataRow("850.OK")]
+        [DataRow("850.Composite.SLN.OK")]
+        [DataRow("856.Crossdock.OK")]
+        [DataRow("850.SyntaxNotes.ERR")]
+        [DataRow("MultipleInterchangesAndGroups")]
+        [DataRow("AckTest")]
+        public void JsonReadWrite_OutputMatchesBaseline(string name)
+        {
+            //Baseline files were produced by the Newtonsoft.Json based writer
+            string expected = TestUtils.ReadResourceStream($"EdiEngine.Tests.TestData.Baseline.{name}.json");
+
+            using (Stream s = GetType().Assembly.GetManifestResourceStream($"EdiEngine.Tests.TestData.{name}.edi"))
+            {
+                EdiDataReader r = new EdiDataReader();
+                EdiBatch b = r.FromStream(s);
+                b.Date = new System.DateTime(2020, 1, 2, 3, 4, 5);
+
+                JsonDataWriter w = new JsonDataWriter();
+                Assert.AreEqual(expected, w.WriteToString(b));
+
+                using (StreamReader sr = new StreamReader(w.WriteToStream(b)))
+                {
+                    Assert.AreEqual(expected, sr.ReadToEnd());
+                }
+            }
         }
     }
 }

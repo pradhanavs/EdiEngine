@@ -1,5 +1,5 @@
 ﻿using EdiEngine.Common.Definitions;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using EdiEngine.Validation;
 using EdiEngine.Xml;
@@ -18,17 +18,19 @@ namespace EdiEngine.Runtime
             ValidationErrors = new List<ValidationError>();
         }
 
-        [JsonProperty(Order = 0)]
+        [JsonPropertyOrder(0)]
         [XmlIgnore]
         public override string Type => "M";
 
+        [JsonPropertyOrder(-1)]
         [XmlProperty(Order = 2)]
         public EdiSegment ST { get; set; }
 
+        [JsonPropertyOrder(-1)]
         [XmlProperty(Order = 3)]
         public EdiSegment SE { get; set; }
 
-        [JsonProperty(Order = 100)]
+        [JsonPropertyOrder(100)]
         [XmlProperty(Order = 100)]
         public virtual List<ValidationError> ValidationErrors { get; }
     }
